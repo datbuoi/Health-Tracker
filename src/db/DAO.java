@@ -61,7 +61,7 @@ public class DAO {
 
     public static List<WeightLog> getWeightHistory(int userId) {
         List<WeightLog> list = new ArrayList<>();
-        String sql = "SELECT * FROM weight_log WHERE user_id=? ORDER BY log_date DESC";
+        String sql = "SELECT * FROM weight_log WHERE user_id=? ORDER BY log_date DESC, id DESC";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -80,7 +80,7 @@ public class DAO {
     }
 
     public static WeightLog getLatestWeight(int userId) {
-        String sql = "SELECT * FROM weight_log WHERE user_id=? ORDER BY log_date DESC LIMIT 1";
+        String sql = "SELECT * FROM weight_log WHERE user_id=? ORDER BY log_date DESC, id DESC LIMIT 1";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -152,7 +152,7 @@ public class DAO {
 
     public static List<SleepLog> getSleepHistory(int userId) {
         List<SleepLog> list = new ArrayList<>();
-        String sql = "SELECT * FROM sleep_log WHERE user_id=? ORDER BY sleep_time DESC LIMIT 14";
+        String sql = "SELECT * FROM sleep_log WHERE user_id=? ORDER BY sleep_time DESC, id DESC LIMIT 14";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -171,7 +171,7 @@ public class DAO {
     }
 
     public static SleepLog getLatestSleep(int userId) {
-        String sql = "SELECT * FROM sleep_log WHERE user_id=? ORDER BY sleep_time DESC LIMIT 1";
+        String sql = "SELECT * FROM sleep_log WHERE user_id=? ORDER BY sleep_time DESC, id DESC LIMIT 1";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
